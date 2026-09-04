@@ -1,28 +1,37 @@
+import { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import AppLayout from "../components/layout/AppLayout";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
+import FullPageLoader from "../components/common/FullPageLoader";
 
-import LoginPage from "../features/auth/pages/LoginPage";
-import DashboardPage from "../features/dashboard/DashboardPage";
-import InventoryPage from "../features/inventory/InventoryPage";
-import SalesPage from "../features/sales/SalesPage";
-import CustomersPage from "../features/customers/CustomersPage";
-import InvoicesPage from "../features/invoices/InvoicesPage";
-import SuppliersPage from "../features/suppliers/SuppliersPage";
-import PurchaseOrdersPage from "../features/purchase-orders/PurchaseOrdersPage";
-import ExpensesPage from "../features/expenses/ExpensesPage";
-import ReportsPage from "../features/reports/ReportsPage";
-import SettingsPage from "../features/settings/SettingsPage";
-import UsersPage from "../features/users/UsersPage";
-import AuditLogPage from "../features/audit-log/AuditLogPage";
+import {
+  LoginPage,
+  DashboardPage,
+  InventoryPage,
+  SalesPage,
+  CustomersPage,
+  InvoicesPage,
+  SuppliersPage,
+  PurchaseOrdersPage,
+  ExpensesPage,
+  ReportsPage,
+  SettingsPage,
+  UsersPage,
+  AuditLogPage,
+  NotFoundPage,
+} from "./lazyRoutes";
 
 import ROLES from "../constants/roles";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <Suspense fallback={<FullPageLoader />}>
+        <LoginPage />
+      </Suspense>
+    ),
   },
   {
     element: (
@@ -79,6 +88,14 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: (
+      <Suspense fallback={<FullPageLoader />}>
+        <NotFoundPage />
+      </Suspense>
+    ),
   },
 ]);
 

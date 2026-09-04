@@ -4,6 +4,8 @@
   "description": "SmartBizzSystem API — Express + Prisma + PostgreSQL (Neon) backend for the Kenyan POS/inventory management app",
   "main": "src/server.js",
   "type": "commonjs",
+  "license": "MIT",
+  "author": "Alvin Kipng'eno Langat",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",

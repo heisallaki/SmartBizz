@@ -1,8 +1,10 @@
 {
-  "name": "smartinventorysystem",
+  "name": "smartbizzsystem",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "license": "MIT",
+  "author": "Alvin Kipng'eno Langat",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

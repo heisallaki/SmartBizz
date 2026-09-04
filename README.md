@@ -71,4 +71,4 @@ The frontend is deployed on Vercel, the backend on Render, and the PostgreSQL da
 
 ## License
 
-Private project. All rights reserved.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.

@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import Sidebar from "./Sidebar";
 import TopNavbar from "./TopNavbar";
+import LoadingState from "../common/LoadingState";
 
 export default function AppLayout() {
   return (
@@ -36,7 +38,9 @@ export default function AppLayout() {
             overflowY: "auto",
           }}
         >
-          <Outlet />
+          <Suspense fallback={<LoadingState />}>
+            <Outlet />
+          </Suspense>
         </Box>
       </Box>
     </Box>
