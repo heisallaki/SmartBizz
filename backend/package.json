@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "smartbizzsystem-backend",
   "version": "1.0.0",
   "description": "SmartBizzSystem API — Express + Prisma + PostgreSQL (Neon) backend for the Kenyan POS/inventory management app",

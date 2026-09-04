@@ -2,7 +2,7 @@
 
 # SmartBizzSystem
 
-An a modern business  management platform, live at **[smart-bizz-system.vercel.app](https://smart-bizz-system.vercel.app/)**.
+A modern business  management platform, live at **[smart-bizz-system.vercel.app](https://smart-bizz-system.vercel.app/)**.
 
 SmartBizzSystem is a modern business management and inventory platform designed to help small and medium-sized businesses manage their day-to-day operations from a centralized system.
 
