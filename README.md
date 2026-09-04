@@ -1,20 +1,16 @@
-# SmartBizzSystem
-
 ![SmartBizzSystem preview](.github/preview.png)
 
-## About
+# SmartBizzSystem
+
+An inventory management system, live at **[smart-bizz-system.vercel.app](https://smart-bizz-system.vercel.app/)**.
 
 SmartBizzSystem is a modern business management and inventory platform designed to help small and medium-sized businesses manage their day-to-day operations from a centralized system.
 
 The project was developed to address common challenges businesses face when managing inventory, suppliers, customers, sales, and business reporting across disconnected tools or manual processes.
 
-I designed and developed the platform with a focus on usability, scalability, and a professional business-oriented interface. The system includes secure authentication, a dashboard, inventory management, supplier management, sales management, customer management, reporting, and configurable system settings.
-
-The application was built using React, Vite, Material UI, and data visualization libraries on the frontend, with a backend API and PostgreSQL database supporting the business operations.
-
 One of the main challenges was structuring multiple interconnected business modules while maintaining consistent data flow, validation, and a responsive user experience. I addressed this through modular architecture, reusable components, centralized theming, API integration, and structured database relationships.
 
-The result is a full-stack business management solution that demonstrates practical application of software development, business process design, database management, & modern web technologies. It supports KES, M-Pesa, and Kenyan business requirements out of the box.
+The result is a full-stack business management solution that demonstrates practical application of software development, business process design, database management, & modern web technologies. It supports KES, and Kenyan business requirements out of the box.
 
 ## Features
 
