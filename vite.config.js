@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 800,
     rolldownOptions: {
       output: {
         codeSplitting: {
@@ -20,9 +20,14 @@ export default defineConfig({
               priority: 25,
             },
             {
+              name: 'vendor-mui-datagrid',
+              test: /node_modules[\\/]@mui[\\/]x-data-grid/,
+              priority: 26,
+            },
+            {
               name: 'vendor-mui',
               test: /node_modules[\\/](@mui|@emotion|@floating-ui)[\\/]/,
-              priority: 25,
+              priority: 22,
             },
             {
               name: 'vendor-charts',
@@ -31,7 +36,7 @@ export default defineConfig({
             },
             {
               name: 'vendor-pdf',
-              test: /node_modules[\\/](jspdf|jspdf-autotable|html2canvas|dompurify)[\\/]/,
+              test: /node_modules[\\/](jspdf|jspdf-autotable)[\\/]/,
               priority: 20,
             },
             {
@@ -41,7 +46,9 @@ export default defineConfig({
             },
             {
               name: 'vendor',
-              test: /node_modules[\\/]/,
+              test: (id) =>
+                id.includes('node_modules') &&
+                !/[\\/](html2canvas|dompurify)[\\/]/.test(id),
               priority: 10,
             },
           ],
