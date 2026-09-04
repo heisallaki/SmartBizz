@@ -37,8 +37,8 @@ The result is a full-stack business management solution that demonstrates practi
 Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/heisallaki/SmartBizzSystem.git
-cd SmartBizzSystem
+git clone https://github.com/heisallaki/SmartBizz
+cd SmartBizz
 npm install
 
 cd backend
@@ -67,7 +67,7 @@ The seed process creates the initial Admin account using the configured bootstra
 ## Project Structure
 
 ```text
-SmartBizzSystem/
+SmartBizz/
 ├── backend/        # API, business logic, authentication and database
 ├── src/            # Frontend application
 │   ├── features/   # Business modules
