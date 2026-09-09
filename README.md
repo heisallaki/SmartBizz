@@ -2,8 +2,6 @@
 
 # SmartBizzSystem
 
-A modern business  management platform, live at **[smart-bizz-system.vercel.app](https://smart-bizz-system.vercel.app/)**.
-
 SmartBizzSystem is a modern business management and inventory platform designed to help small and medium-sized businesses manage their day-to-day operations from a centralized system.
 
 The project was developed to address common challenges businesses face when managing inventory, suppliers, customers, sales, and business reporting across disconnected tools or manual processes.
@@ -81,4 +79,4 @@ The frontend is deployed on Vercel, the backend on Render, and the PostgreSQL da
 
 ## License
 
-MIT License. See the [LICENSE](./LICENSE) file for details.
+MIT License.
