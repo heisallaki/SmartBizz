@@ -11,13 +11,16 @@ export default function LoginPage() {
       sx={{
         background:
           "linear-gradient(135deg,#7C3AED,#0F766E)",
+        px: 2,
+        py: 4,
       }}
     >
       <Paper
         elevation={6}
         sx={{
-          padding: 5,
-          width: 420,
+          padding: { xs: 3, sm: 4, md: 5 },
+          width: { xs: "100%", sm: 420 },
+          maxWidth: 420,
           borderRadius: 4,
         }}
       >

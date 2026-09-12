@@ -45,7 +45,7 @@ export default function LoginForm() {
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ width: 350 }}
+      sx={{ width: "100%" }}
     >
       <Stack spacing={3}>
         {error && <Alert severity="error">{error}</Alert>}

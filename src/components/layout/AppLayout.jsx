@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
@@ -7,6 +7,16 @@ import TopNavbar from "./TopNavbar";
 import LoadingState from "../common/LoadingState";
 
 export default function AppLayout() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prev) => !prev);
+  };
+
+  const handleDrawerClose = () => {
+    setMobileOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -16,7 +26,7 @@ export default function AppLayout() {
         bgcolor: "background.default",
       }}
     >
-      <Sidebar />
+      <Sidebar mobileOpen={mobileOpen} onMobileClose={handleDrawerClose} />
 
       <Box
         sx={{
@@ -25,16 +35,17 @@ export default function AppLayout() {
           flexDirection: "column",
           height: "100vh",     
           overflow: "hidden",  
+          minWidth: 0,
         }}
       >
-        <TopNavbar />
+        <TopNavbar onMenuClick={handleDrawerToggle} />
 
         <Box
           component="main"
           sx={{
             flex: 1,
-            p: 5,
-            py: 4,
+            p: { xs: 2, sm: 3, md: 4, lg: 5 },
+            py: { xs: 2, sm: 3, md: 4 },
             overflowY: "auto",
           }}
         >

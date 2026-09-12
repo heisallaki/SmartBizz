@@ -17,6 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
@@ -38,7 +39,7 @@ function timeAgo(dateString) {
   return `${diffDays}d ago`;
 }
 
-export default function TopNavbar() {
+export default function TopNavbar({ onMenuClick = () => {} }) {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
 
@@ -87,11 +88,29 @@ export default function TopNavbar() {
           display: "flex",
           justifyContent: "space-between",
           minHeight: 70,
+          gap: 1,
         }}
       >
-        <Typography variant="h6" fontWeight={700}>
-          SmartBizzSystem
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            minWidth: 0,
+          }}
+        >
+          <IconButton
+            onClick={onMenuClick}
+            aria-label="Open navigation menu"
+            sx={{ display: { xs: "inline-flex", lg: "none" } }}
+          >
+            <MenuRoundedIcon />
+          </IconButton>
+
+          <Typography variant="h6" fontWeight={700} noWrap>
+            SmartBizzSystem
+          </Typography>
+        </Box>
 
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton onClick={openNotifications}>
@@ -112,7 +131,7 @@ export default function TopNavbar() {
         anchorEl={notificationAnchor}
         open={Boolean(notificationAnchor)}
         onClose={closeNotifications}
-        PaperProps={{ sx: { width: 340 } }}
+        PaperProps={{ sx: { width: 340, maxWidth: "calc(100vw - 32px)" } }}
       >
         <Box
           sx={{
