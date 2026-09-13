@@ -97,28 +97,28 @@ const SUPPORT_LINKS = [
     label: "Documentation",
     description: "Guides and tutorials for using SmartBizz.",
     icon: ArticleRounded,
-    href: "https://docs.smartbizz.app",
+    href: "/documentation",
   },
   {
     id: "contact",
     label: "Contact Support",
     description: "Reach out to the SmartBizz support team.",
     icon: SupportAgentRounded,
-    href: "mailto:support@smartbizz.com",
+    href: "mailto:kal.projects.dev@gmail.com",
   },
   {
     id: "privacy",
     label: "Privacy Policy",
     description: "Learn how your data is collected and used.",
     icon: PrivacyTipRounded,
-    href: "https://smartbizz.app/privacy",
+    href: "/privacy-policy",
   },
   {
     id: "terms",
     label: "Terms of Service",
     description: "Review the terms that govern SmartBizz usage.",
     icon: GavelRounded,
-    href: "https://smartbizz.app/terms",
+    href: "/terms-of-service",
   },
 ];
 

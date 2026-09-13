@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import TopNavbar from "./TopNavbar";
 import LoadingState from "../common/LoadingState";
+import DemoModeBanner from "../common/DemoModeBanner";
+import { isDemoMode } from "../../utils/demoMode";
 
 export default function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -39,6 +41,8 @@ export default function AppLayout() {
         }}
       >
         <TopNavbar onMenuClick={handleDrawerToggle} />
+
+        {isDemoMode() ? <DemoModeBanner /> : null}
 
         <Box
           component="main"

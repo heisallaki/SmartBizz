@@ -11,6 +11,7 @@ import {
 
 import { login as loginService } from "../services/authService";
 import useAuth from "../hooks/useAuth";
+import { clearDemoFlag } from "../../../utils/demoMode";
 
 export default function LoginForm() {
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function LoginForm() {
     try {
       const { user, token } = await loginService(email, password);
 
+      clearDemoFlag();
       login(user, token);
       navigate("/");
     } catch (err) {

@@ -19,6 +19,9 @@ import {
   SettingsPage,
   UsersPage,
   AuditLogPage,
+  DocumentationPage,
+  PrivacyPolicyPage,
+  TermsOfServicePage,
   NotFoundPage,
 } from "./lazyRoutes";
 
@@ -30,6 +33,30 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<FullPageLoader />}>
         <LoginPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/documentation",
+    element: (
+      <Suspense fallback={<FullPageLoader />}>
+        <DocumentationPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/privacy-policy",
+    element: (
+      <Suspense fallback={<FullPageLoader />}>
+        <PrivacyPolicyPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/terms-of-service",
+    element: (
+      <Suspense fallback={<FullPageLoader />}>
+        <TermsOfServicePage />
       </Suspense>
     ),
   },

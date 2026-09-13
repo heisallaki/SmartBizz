@@ -13,4 +13,7 @@ export const ReportsPage = lazy(() => import("../features/reports/ReportsPage"))
 export const SettingsPage = lazy(() => import("../features/settings/SettingsPage"));
 export const UsersPage = lazy(() => import("../features/users/UsersPage"));
 export const AuditLogPage = lazy(() => import("../features/audit-log/AuditLogPage"));
+export const DocumentationPage = lazy(() => import("../features/legal/DocumentationPage"));
+export const PrivacyPolicyPage = lazy(() => import("../features/legal/PrivacyPolicyPage"));
+export const TermsOfServicePage = lazy(() => import("../features/legal/TermsOfServicePage"));
 export const NotFoundPage = lazy(() => import("../features/not-found/NotFoundPage"));
