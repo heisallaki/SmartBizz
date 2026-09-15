@@ -9,3 +9,4 @@ uploads/*
 !uploads/logos/
 uploads/logos/*
 !uploads/logos/.gitkeep
+.DS_Store
