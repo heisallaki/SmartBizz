@@ -25,9 +25,19 @@ async function getBackups(limit = 10) {
   }
 }
 
+async function restoreBackup(tables) {
+  try {
+    const { data } = await api.post("/backups/restore", { tables });
+    return data.data;
+  } catch (error) {
+    throw new Error(extractErrorMessage(error, "Failed to restore backup."), { cause: error });
+  }
+}
+
 const backupsService = {
   createBackup,
   getBackups,
+  restoreBackup,
 };
 
 export default backupsService;

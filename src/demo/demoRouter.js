@@ -753,6 +753,16 @@ const routes = [
       return ok(singletons.businessSettings);
     },
   },
+  {
+    method: "post",
+    pattern: /^\/settings\/business\/logo$/,
+    handler: (params, config) => {
+      const file = typeof config.data?.get === "function" ? config.data.get("logo") : null;
+      const logoUrl = file ? URL.createObjectURL(file) : singletons.businessSettings.logoUrl;
+      singletons.businessSettings = { ...singletons.businessSettings, logoUrl };
+      return ok(singletons.businessSettings);
+    },
+  },
   { method: "get", pattern: /^\/settings\/notifications$/, handler: () => ok(singletons.notificationPreferences) },
   {
     method: "patch",

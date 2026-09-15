@@ -25,9 +25,25 @@ async function updateBusinessSettings(payload) {
   }
 }
 
+async function uploadLogo(file) {
+  try {
+    const formData = new FormData();
+    formData.append("logo", file);
+
+    const { data } = await api.post("/settings/business/logo", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return data.data;
+  } catch (error) {
+    throw new Error(extractErrorMessage(error, "Failed to upload logo."), { cause: error });
+  }
+}
+
 const businessSettingsService = {
   getBusinessSettings,
   updateBusinessSettings,
+  uploadLogo,
 };
 
 export default businessSettingsService;

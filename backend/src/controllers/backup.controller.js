@@ -26,4 +26,10 @@ const getBackups = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { postBackup, getBackups };
+const postRestoreBackup = asyncHandler(async (req, res) => {
+  await backupService.restoreBackup(req.body.tables, req.user.id);
+
+  ApiResponse.ok(res, { message: "Backup restored successfully." });
+});
+
+module.exports = { postBackup, getBackups, postRestoreBackup };

@@ -47,6 +47,7 @@ import SettingsTextField from "./components/SettingsTextField";
 import SaveSettingsBar from "./components/SaveSettingsBar";
 import PasswordDialog from "./components/PasswordDialog";
 import ConfirmationDialog from "./components/ConfirmationDialog";
+import RestoreBackupDialog from "./components/RestoreBackupDialog";
 import ImportDialog from "./components/ImportDialog";
 import ExportDialog from "./components/ExportDialog";
 import LogoUploader from "./components/LogoUploader";
@@ -160,7 +161,8 @@ export default function SettingsPage() {
   const { backups, refresh: refreshBackups } = useBackupHistory();
 
   const [processing, setProcessing] = useState(false);
-    useState(null);
+  const [restoreFile, setRestoreFile] = useState(null);
+  const [restoreError, setRestoreError] = useState("");
 
   const handleResetAll = () => {
     general.reset();
@@ -313,30 +315,42 @@ export default function SettingsPage() {
     }
   };
 
+  const handleRestoreFileSelect = (file) => {
+    setRestoreFile(file);
+    setRestoreError("");
+  };
+
   const handleRestoreBackup = async () => {
-    if (!lastBackupSnapshot) return;
+    if (!restoreFile) return;
+
+    setProcessing(true);
+    setRestoreError("");
 
     try {
-      setProcessing(true);
+      const text = await restoreFile.text();
+      const parsed = JSON.parse(text);
 
-      const data = await settingsActions.restoreBackup(
-        lastBackupSnapshot
-      );
+      if (!parsed || typeof parsed.tables !== "object") {
+        throw new Error("This file doesn't look like a valid SmartBizz backup.");
+      }
 
-      general.update(data.general);
-      appearance.update(data.appearance);
-      security.update(data.security);
-      notifications.update(data.notifications);
-      business.update(data.business);
-      backup.update(data.backup);
+      await backupsService.restoreBackup(parsed.tables);
 
       closeDialog("restore");
+      setRestoreFile(null);
 
-      showSnackbar("Settings restored from backup.");
-    } catch {
       showSnackbar(
-        "Failed to restore backup.",
-        "error"
+        "Backup restored successfully. Reloading SmartBizz..."
+      );
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1800);
+    } catch (error) {
+      setRestoreError(
+        error instanceof SyntaxError
+          ? "This file isn't valid JSON."
+          : error.message || "Failed to restore backup."
       );
     } finally {
       setProcessing(false);
@@ -442,6 +456,8 @@ export default function SettingsPage() {
                   onUpload={general.handleLogoChange}
                   onRemove={general.removeLogo}
                   disabled={saving}
+                  uploading={general.logoUploading}
+                  error={general.logoError}
                 />
               </Grid>
 
@@ -1000,26 +1016,28 @@ export default function SettingsPage() {
               <Grid size={{ xs: 12, md: 6 }}>
                 <SettingsCard
                   title="Restore"
-                  description="Restoring business data from a backup file."
+                  description="Restore business data from a previously downloaded backup file."
                 >
                   <Typography
                     variant="body2"
                     color="text.secondary"
                   >
-                    Restoring from a backup file isn&apos;t
-                    available yet. Keep your downloaded
-                    backup files somewhere safe in the
-                    meantime.
+                    Select a backup file created with &quot;Backup
+                    Now&quot; to replace your current business
+                    data. This overwrites products, sales,
+                    customers, invoices, suppliers, purchase
+                    orders and expenses, so make sure the file
+                    you choose is the right one.
                   </Typography>
 
                   <Button
                     variant="outlined"
                     color="warning"
                     startIcon={<RestoreRounded />}
-                    disabled
+                    onClick={() => openDialog("restore")}
                     sx={{ alignSelf: "flex-start" }}
                   >
-                    Restore Latest Backup
+                    Restore From Backup File
                   </Button>
                 </SettingsCard>
               </Grid>
@@ -1362,7 +1380,7 @@ export default function SettingsPage() {
         open={dialogs.backup}
         loading={processing}
         title="Create Backup"
-        message="This will create a snapshot of your current settings that can be restored later."
+        message="This will export a full snapshot of your business data (products, sales, customers, invoices, suppliers, purchase orders and expenses) as a downloadable file."
         icon={
           <BackupRounded
             color="primary"
@@ -1375,21 +1393,18 @@ export default function SettingsPage() {
         onConfirm={handleCreateBackup}
       />
 
-      <ConfirmationDialog
+      <RestoreBackupDialog
         open={dialogs.restore}
         loading={processing}
-        title="Restore Backup"
-        message="This will overwrite your current settings with the most recent backup. This action cannot be undone."
-        icon={
-          <RestoreRounded
-            color="warning"
-            sx={{ fontSize: 48 }}
-          />
-        }
-        confirmText="Restore"
-        confirmColor="warning"
-        onClose={() => closeDialog("restore")}
-        onConfirm={handleRestoreBackup}
+        selectedFile={restoreFile}
+        error={restoreError}
+        onClose={() => {
+          closeDialog("restore");
+          setRestoreFile(null);
+          setRestoreError("");
+        }}
+        onRestore={handleRestoreBackup}
+        onFileSelect={handleRestoreFileSelect}
       />
 
       <SnackbarAlert

@@ -2,6 +2,7 @@ const { Router } = require("express");
 const {
   getBusinessSettings,
   patchBusinessSettings,
+  postBusinessLogo,
 } = require("../controllers/businessSetting.controller");
 const {
   getNotificationPreferences,
@@ -9,6 +10,7 @@ const {
 } = require("../controllers/notificationPreference.controller");
 const { requireAuth } = require("../middleware/auth");
 const { requirePermission } = require("../middleware/permission");
+const { handleLogoUpload } = require("../middleware/upload");
 const validate = require("../middleware/validate");
 const { updateBusinessSettingsSchema } = require("../validators/businessSetting.validator");
 const {
@@ -25,6 +27,12 @@ router.patch(
   requirePermission("Settings", "edit"),
   validate(updateBusinessSettingsSchema),
   patchBusinessSettings
+);
+router.post(
+  "/business/logo",
+  requirePermission("Settings", "edit"),
+  handleLogoUpload,
+  postBusinessLogo
 );
 
 router.get(

@@ -2,10 +2,13 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { generalSettings as initialSettings } from "../data/settingsData";
 import * as settingsService from "../services/settings.service";
+import businessSettingsService from "../services/businessSettings.service";
 
 export default function useGeneralSettings() {
   const [settings, setSettings] = useState(initialSettings);
   const [loading, setLoading] = useState(true);
+  const [logoUploading, setLogoUploading] = useState(false);
+  const [logoError, setLogoError] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -35,19 +38,24 @@ export default function useGeneralSettings() {
     }));
   }, []);
 
-  const handleLogoChange = useCallback((file) => {
+  const handleLogoChange = useCallback(async (file) => {
     if (!file) return;
 
-    const reader = new FileReader();
+    setLogoUploading(true);
+    setLogoError("");
 
-    reader.onload = (event) => {
+    try {
+      const updated = await businessSettingsService.uploadLogo(file);
+
       setSettings((previous) => ({
         ...previous,
-        businessLogo: event.target?.result ?? "",
+        businessLogo: updated.logoUrl ?? "",
       }));
-    };
-
-    reader.readAsDataURL(file);
+    } catch (error) {
+      setLogoError(error.message);
+    } finally {
+      setLogoUploading(false);
+    }
   }, []);
 
   const removeLogo = useCallback(() => {
@@ -75,6 +83,8 @@ export default function useGeneralSettings() {
     loading,
 
     hasLogo,
+    logoUploading,
+    logoError,
 
     update,
     reset,
