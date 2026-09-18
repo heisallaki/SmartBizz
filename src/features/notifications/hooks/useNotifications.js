@@ -9,6 +9,7 @@ export default function useNotifications() {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const load = useCallback(async () => {
     try {
@@ -19,7 +20,9 @@ export default function useNotifications() {
 
       setNotifications(recent.items);
       setUnreadCount(count);
-    } catch {
+      setError("");
+    } catch (fetchError) {
+      setError(fetchError.message || "Failed to load notifications.");
     } finally {
       setLoading(false);
     }
@@ -44,7 +47,9 @@ export default function useNotifications() {
       );
 
       setUnreadCount((previous) => Math.max(0, previous - 1));
-    } catch {
+      setError("");
+    } catch (markError) {
+      setError(markError.message || "Failed to update notification.");
     }
   }, []);
 
@@ -56,7 +61,9 @@ export default function useNotifications() {
         previous.map((notification) => ({ ...notification, isRead: true }))
       );
       setUnreadCount(0);
-    } catch {
+      setError("");
+    } catch (markError) {
+      setError(markError.message || "Failed to update notifications.");
     }
   }, []);
 
@@ -64,6 +71,7 @@ export default function useNotifications() {
     notifications,
     unreadCount,
     loading,
+    error,
     markAsRead,
     markAllAsRead,
     refresh: load,

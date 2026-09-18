@@ -12,7 +12,7 @@ async function getDashboard() {
     const { data } = await api.get("/dashboard");
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load dashboard."));
+    throw new Error(extractErrorMessage(error, "Failed to load dashboard."), { cause: error });
   }
 }
 

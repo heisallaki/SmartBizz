@@ -34,7 +34,7 @@ const userService = {
         temporaryPassword: data.data.temporaryPassword,
       };
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to create user."));
+      throw new Error(extractErrorMessage(error, "Failed to create user."), { cause: error });
     }
   },
 
@@ -44,7 +44,7 @@ const userService = {
       const { data } = await api.patch(`/users/${id}`, rest);
       return mapUser(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to update user."));
+      throw new Error(extractErrorMessage(error, "Failed to update user."), { cause: error });
     }
   },
 
@@ -53,7 +53,7 @@ const userService = {
       await api.delete(`/users/${id}`);
       return true;
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to deactivate user."));
+      throw new Error(extractErrorMessage(error, "Failed to deactivate user."), { cause: error });
     }
   },
 
@@ -62,7 +62,7 @@ const userService = {
       const { data } = await api.post(`/users/${id}/reset-password`, {});
       return data.data;
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to reset password."));
+      throw new Error(extractErrorMessage(error, "Failed to reset password."), { cause: error });
     }
   },
 };

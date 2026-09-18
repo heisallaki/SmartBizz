@@ -12,7 +12,7 @@ async function getRecent(limit = 8) {
     const { data } = await api.get("/notifications", { params: { limit } });
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load notifications."));
+    throw new Error(extractErrorMessage(error, "Failed to load notifications."), { cause: error });
   }
 }
 
@@ -21,7 +21,7 @@ async function getUnreadCount() {
     const { data } = await api.get("/notifications/unread-count");
     return data.data.count;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load unread count."));
+    throw new Error(extractErrorMessage(error, "Failed to load unread count."), { cause: error });
   }
 }
 
@@ -30,7 +30,7 @@ async function markAsRead(id) {
     const { data } = await api.patch(`/notifications/${id}/read`);
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to mark notification as read."));
+    throw new Error(extractErrorMessage(error, "Failed to mark notification as read."), { cause: error });
   }
 }
 
@@ -38,7 +38,7 @@ async function markAllAsRead() {
   try {
     await api.post("/notifications/read-all");
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to mark all as read."));
+    throw new Error(extractErrorMessage(error, "Failed to mark all as read."), { cause: error });
   }
 }
 

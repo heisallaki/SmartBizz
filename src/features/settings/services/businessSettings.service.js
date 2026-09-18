@@ -12,7 +12,7 @@ async function getBusinessSettings() {
     const { data } = await api.get("/settings/business");
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load business settings."));
+    throw new Error(extractErrorMessage(error, "Failed to load business settings."), { cause: error });
   }
 }
 
@@ -21,7 +21,7 @@ async function updateBusinessSettings(payload) {
     const { data } = await api.patch("/settings/business", payload);
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to save business settings."));
+    throw new Error(extractErrorMessage(error, "Failed to save business settings."), { cause: error });
   }
 }
 

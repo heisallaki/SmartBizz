@@ -12,7 +12,7 @@ async function getNotificationPreferences() {
     const { data } = await api.get("/settings/notifications");
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load notification preferences."));
+    throw new Error(extractErrorMessage(error, "Failed to load notification preferences."), { cause: error });
   }
 }
 
@@ -21,7 +21,7 @@ async function updateNotificationPreferences(payload) {
     const { data } = await api.patch("/settings/notifications", payload);
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to save notification preferences."));
+    throw new Error(extractErrorMessage(error, "Failed to save notification preferences."), { cause: error });
   }
 }
 

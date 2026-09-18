@@ -58,7 +58,7 @@ const expenseService = {
       const { data } = await api.post("/expenses", toApiPayload(expense, expenseCategoryId));
       return mapExpense(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to create expense."));
+      throw new Error(extractErrorMessage(error, "Failed to create expense."), { cause: error });
     }
   },
 
@@ -71,7 +71,7 @@ const expenseService = {
       );
       return mapExpense(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to update expense."));
+      throw new Error(extractErrorMessage(error, "Failed to update expense."), { cause: error });
     }
   },
 

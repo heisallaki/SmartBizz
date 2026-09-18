@@ -35,6 +35,8 @@ export default defineConfig([
       "react-hooks/set-state-in-effect": "off",
       "react-hooks/refs": "off",
       "react-hooks/immutability": "off",
+
+      "no-unused-vars": ["error", { ignoreRestSiblings: true }],
     },
   },
 
@@ -48,6 +50,10 @@ export default defineConfig([
 
     languageOptions: {
       globals: globals.node,
+    },
+
+    rules: {
+      "no-unused-vars": ["error", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }],
     },
   },
 

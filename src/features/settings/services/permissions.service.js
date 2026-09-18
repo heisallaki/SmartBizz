@@ -12,7 +12,7 @@ async function getRoles() {
     const { data } = await api.get("/roles");
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load roles."));
+    throw new Error(extractErrorMessage(error, "Failed to load roles."), { cause: error });
   }
 }
 
@@ -21,7 +21,7 @@ async function getRoleMatrix(roleId) {
     const { data } = await api.get(`/permissions/roles/${roleId}`);
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load permissions."));
+    throw new Error(extractErrorMessage(error, "Failed to load permissions."), { cause: error });
   }
 }
 
@@ -30,7 +30,7 @@ async function updateRoleMatrix(roleId, matrix) {
     const { data } = await api.put(`/permissions/roles/${roleId}`, { matrix });
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to save permissions."));
+    throw new Error(extractErrorMessage(error, "Failed to save permissions."), { cause: error });
   }
 }
 

@@ -12,7 +12,7 @@ async function createBackup() {
     const { data } = await api.post("/backups");
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to create backup."));
+    throw new Error(extractErrorMessage(error, "Failed to create backup."), { cause: error });
   }
 }
 
@@ -21,7 +21,7 @@ async function getBackups(limit = 10) {
     const { data } = await api.get("/backups", { params: { limit } });
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load backup history."));
+    throw new Error(extractErrorMessage(error, "Failed to load backup history."), { cause: error });
   }
 }
 
@@ -34,10 +34,20 @@ async function restoreBackup(tables) {
   }
 }
 
+async function resetDemoData() {
+  try {
+    const { data } = await api.post("/backups/reset-demo-data");
+    return data.data;
+  } catch (error) {
+    throw new Error(extractErrorMessage(error, "Failed to reset demo data."), { cause: error });
+  }
+}
+
 const backupsService = {
   createBackup,
   getBackups,
   restoreBackup,
+  resetDemoData,
 };
 
 export default backupsService;

@@ -37,7 +37,8 @@ export default function useAuditLog() {
         setActions(meta.actions);
         setEntityTypes(meta.entityTypes);
         setUsers(userData);
-      } catch {
+      } catch (filterError) {
+        if (active) setError(filterError.message || "Failed to load filter options.");
       }
     };
 

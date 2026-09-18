@@ -1,7 +1,7 @@
 const { Prisma } = require("@prisma/client");
 const env = require("../config/env");
 
-function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res, _next) {
   let statusCode = err.statusCode || 500;
   let message = err.message || "Something went wrong";
   let details = err.details || undefined;

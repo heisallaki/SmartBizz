@@ -28,7 +28,7 @@ const purchaseOrderService = {
       const { data } = await api.post("/purchase-orders", payload);
       return mapPurchaseOrder(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to create purchase order."));
+      throw new Error(extractErrorMessage(error, "Failed to create purchase order."), { cause: error });
     }
   },
 
@@ -37,7 +37,7 @@ const purchaseOrderService = {
       const { data } = await api.patch(`/purchase-orders/${id}`, payload);
       return mapPurchaseOrder(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to update purchase order."));
+      throw new Error(extractErrorMessage(error, "Failed to update purchase order."), { cause: error });
     }
   },
 
@@ -46,7 +46,7 @@ const purchaseOrderService = {
       const { data } = await api.patch(`/purchase-orders/${id}/status`, { status });
       return mapPurchaseOrder(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to update purchase order status."));
+      throw new Error(extractErrorMessage(error, "Failed to update purchase order status."), { cause: error });
     }
   },
 
@@ -55,7 +55,7 @@ const purchaseOrderService = {
       const { data } = await api.post(`/purchase-orders/${id}/receive`, { items });
       return mapPurchaseOrder(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to record received items."));
+      throw new Error(extractErrorMessage(error, "Failed to record received items."), { cause: error });
     }
   },
 
@@ -64,7 +64,7 @@ const purchaseOrderService = {
       await api.delete(`/purchase-orders/${id}`);
       return true;
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to delete purchase order."));
+      throw new Error(extractErrorMessage(error, "Failed to delete purchase order."), { cause: error });
     }
   },
 };

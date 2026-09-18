@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 import FullPageLoader from "../components/common/FullPageLoader";
+import RouteErrorBoundary from "../components/common/RouteErrorBoundary";
 
 import {
   LoginPage,
@@ -27,7 +28,17 @@ import {
 
 import ROLES from "../constants/roles";
 
-const router = createBrowserRouter([
+function withErrorBoundaries(route) {
+  const routeWithBoundary = { ...route, errorElement: <RouteErrorBoundary /> };
+
+  if (route.children) {
+    routeWithBoundary.children = route.children.map(withErrorBoundaries);
+  }
+
+  return routeWithBoundary;
+}
+
+const routes = [
   {
     path: "/login",
     element: (
@@ -124,6 +135,8 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
-]);
+];
+
+const router = createBrowserRouter(routes.map(withErrorBoundaries));
 
 export default router;

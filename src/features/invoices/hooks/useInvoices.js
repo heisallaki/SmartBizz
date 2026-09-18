@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import invoiceService from "../services/invoice.service";
 import customerService from "../../customers/services/customer.service";
@@ -27,15 +27,15 @@ export default function useInvoices() {
 
   const [snackbar, setSnackbar] = useState({ open: false, severity: "success", message: "" });
 
-  const showSnackbar = (message, severity = "success") => {
+  const showSnackbar = useCallback((message, severity = "success") => {
     setSnackbar({ open: true, severity, message });
-  };
+  }, []);
 
   const closeSnackbar = () => {
     setSnackbar((previous) => ({ ...previous, open: false }));
   };
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const [invoiceData, customerData, salesData] = await Promise.all([
@@ -51,11 +51,11 @@ export default function useInvoices() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showSnackbar]);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   const createFromSale = async (payload) => {
     try {

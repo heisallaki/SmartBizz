@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import purchaseOrderService from "../services/purchaseOrder.service";
 import inventoryService from "../../inventory/services/inventory.service";
@@ -30,15 +30,15 @@ export default function usePurchaseOrders() {
 
   const [snackbar, setSnackbar] = useState({ open: false, severity: "success", message: "" });
 
-  const showSnackbar = (message, severity = "success") => {
+  const showSnackbar = useCallback((message, severity = "success") => {
     setSnackbar({ open: true, severity, message });
-  };
+  }, []);
 
   const closeSnackbar = () => {
     setSnackbar((previous) => ({ ...previous, open: false }));
   };
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const [poData, productData, supplierData] = await Promise.all([
@@ -54,11 +54,11 @@ export default function usePurchaseOrders() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showSnackbar]);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   const addPurchaseOrder = async (payload) => {
     try {

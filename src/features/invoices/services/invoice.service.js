@@ -28,7 +28,7 @@ const invoiceService = {
       const { data } = await api.post("/invoices/from-sale", payload);
       return mapInvoice(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to generate invoice from sale."));
+      throw new Error(extractErrorMessage(error, "Failed to generate invoice from sale."), { cause: error });
     }
   },
 
@@ -37,7 +37,7 @@ const invoiceService = {
       const { data } = await api.post("/invoices", payload);
       return mapInvoice(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to create invoice."));
+      throw new Error(extractErrorMessage(error, "Failed to create invoice."), { cause: error });
     }
   },
 
@@ -46,7 +46,7 @@ const invoiceService = {
       const { data } = await api.patch(`/invoices/${id}`, payload);
       return mapInvoice(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to update invoice."));
+      throw new Error(extractErrorMessage(error, "Failed to update invoice."), { cause: error });
     }
   },
 
@@ -55,7 +55,7 @@ const invoiceService = {
       const { data } = await api.post(`/invoices/${id}/payments`, payload);
       return mapInvoice(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to record payment."));
+      throw new Error(extractErrorMessage(error, "Failed to record payment."), { cause: error });
     }
   },
 
@@ -64,7 +64,7 @@ const invoiceService = {
       const { data } = await api.post(`/invoices/${id}/void`);
       return mapInvoice(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to void invoice."));
+      throw new Error(extractErrorMessage(error, "Failed to void invoice."), { cause: error });
     }
   },
 
@@ -73,7 +73,7 @@ const invoiceService = {
       await api.delete(`/invoices/${id}`);
       return true;
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to delete invoice."));
+      throw new Error(extractErrorMessage(error, "Failed to delete invoice."), { cause: error });
     }
   },
 };

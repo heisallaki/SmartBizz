@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
+  Alert,
   AppBar,
   Avatar,
   Badge,
@@ -43,7 +44,7 @@ export default function TopNavbar({ onMenuClick = () => {} }) {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
 
-  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
+  const { notifications, unreadCount, error: notificationsError, markAsRead, markAllAsRead } = useNotifications();
 
   const [profileAnchor, setProfileAnchor] = useState(null);
   const [notificationAnchor, setNotificationAnchor] = useState(null);
@@ -153,7 +154,13 @@ export default function TopNavbar({ onMenuClick = () => {} }) {
 
         <Divider />
 
-        {notifications.length === 0 ? (
+        {notificationsError ? (
+          <Alert severity="error" sx={{ mx: 2, my: 1 }}>
+            {notificationsError}
+          </Alert>
+        ) : null}
+
+        {notifications.length === 0 && !notificationsError ? (
           <MenuItem disabled>
             <ListItemText primary="No notifications yet" />
           </MenuItem>

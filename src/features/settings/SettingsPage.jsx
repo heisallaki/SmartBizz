@@ -28,7 +28,6 @@ import {
   PrivacyTipRounded,
   RestoreRounded,
   SupportAgentRounded,
-  WarningAmberRounded,
 } from "@mui/icons-material";
 
 import { saveAs } from "file-saver";

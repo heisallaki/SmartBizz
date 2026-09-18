@@ -55,10 +55,12 @@ const loading = general.loading || business.loading || notifications.loading;
   );
 
   const snapshotRef = useRef(null);
+  const settingsRef = useRef(settings);
+  settingsRef.current = settings;
 
   useEffect(() => {
     if (!loading) {
-      snapshotRef.current = JSON.stringify(settings);
+      snapshotRef.current = JSON.stringify(settingsRef.current);
     }
   }, [loading]);
 

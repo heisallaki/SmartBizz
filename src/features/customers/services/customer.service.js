@@ -72,7 +72,7 @@ const customerService = {
       const { data } = await api.post("/customers", toApiPayload(customer));
       return mapCustomer(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to create customer."));
+      throw new Error(extractErrorMessage(error, "Failed to create customer."), { cause: error });
     }
   },
 
@@ -81,7 +81,7 @@ const customerService = {
       const { data } = await api.patch(`/customers/${id}`, toApiPayload(updates));
       return mapCustomer(data.data);
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to update customer."));
+      throw new Error(extractErrorMessage(error, "Failed to update customer."), { cause: error });
     }
   },
 
@@ -90,7 +90,7 @@ const customerService = {
       await api.delete(`/customers/${id}`);
       return true;
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to delete customer."));
+      throw new Error(extractErrorMessage(error, "Failed to delete customer."), { cause: error });
     }
   },
 
@@ -99,7 +99,7 @@ const customerService = {
       const { data } = await api.get("/customers/statistics");
       return data.data;
     } catch (error) {
-      throw new Error(extractErrorMessage(error, "Failed to load customer statistics."));
+      throw new Error(extractErrorMessage(error, "Failed to load customer statistics."), { cause: error });
     }
   },
 };

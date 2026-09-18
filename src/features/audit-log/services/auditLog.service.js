@@ -28,7 +28,7 @@ async function getAuditLogs(params) {
     const { data } = await api.get("/audit-logs", { params });
     return { items: data.data.map(mapAuditLog), meta: data.meta };
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load audit logs."));
+    throw new Error(extractErrorMessage(error, "Failed to load audit logs."), { cause: error });
   }
 }
 
@@ -40,7 +40,7 @@ async function getAuditMeta() {
       entityTypes: data.data.entityTypes.map((type) => ({ value: type, label: humanize(type) })),
     };
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load audit log filters."));
+    throw new Error(extractErrorMessage(error, "Failed to load audit log filters."), { cause: error });
   }
 }
 

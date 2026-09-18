@@ -23,7 +23,7 @@ export async function fetchReports(
     });
     return data.data;
   } catch (error) {
-    throw new Error(extractErrorMessage(error, "Failed to load reports."));
+    throw new Error(extractErrorMessage(error, "Failed to load reports."), { cause: error });
   }
 }
 
