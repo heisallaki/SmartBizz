@@ -95,6 +95,7 @@ export default function CreateInvoiceDialog({ open, onClose, onCreateFromSale, o
       }
       onClose();
     } catch {
+      return;
     } finally {
       setSaving(false);
     }

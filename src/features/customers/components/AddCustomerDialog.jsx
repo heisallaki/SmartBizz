@@ -81,6 +81,7 @@ export default function AddCustomerDialog({
       setCustomer(emptyCustomer());
       setErrors({});
     } catch {
+      return;
     }
   };
 

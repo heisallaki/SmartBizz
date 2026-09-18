@@ -101,6 +101,7 @@ export default function ProductDialog({
       setErrors({});
       onClose();
     } catch {
+      return;
     } finally {
       setSaving(false);
     }

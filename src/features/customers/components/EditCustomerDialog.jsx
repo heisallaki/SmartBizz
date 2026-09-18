@@ -90,6 +90,7 @@ export default function EditCustomerDialog({
         formData
       );
     } catch {
+      return;
     }
   };
 

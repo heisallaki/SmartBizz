@@ -142,6 +142,7 @@ export default function SupplierDialog({
       setErrors({});
       onClose();
     } catch {
+      return;
     } finally {
       setSaving(false);
     }

@@ -23,6 +23,7 @@ export default function DeleteCustomerDialog({
     try {
       await onDelete(customer.id);
     } catch {
+      return;
     }
   };
 

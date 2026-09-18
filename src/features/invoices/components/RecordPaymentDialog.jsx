@@ -52,6 +52,7 @@ export default function RecordPaymentDialog({ open, invoice, onClose, onRecordPa
         referenceCode: referenceCode || undefined,
       });
     } catch {
+      return;
     } finally {
       setSaving(false);
     }

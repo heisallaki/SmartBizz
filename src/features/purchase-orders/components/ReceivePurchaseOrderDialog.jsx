@@ -45,6 +45,7 @@ export default function ReceivePurchaseOrderDialog({ open, purchaseOrder, onClos
     try {
       await onReceive(items);
     } catch {
+      return;
     } finally {
       setSaving(false);
     }

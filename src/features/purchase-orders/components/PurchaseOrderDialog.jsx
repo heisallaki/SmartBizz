@@ -120,6 +120,7 @@ export default function PurchaseOrderDialog({ open, onClose, onSave, selectedPur
       setErrors({});
       onClose();
     } catch {
+      return;
     } finally {
       setSaving(false);
     }

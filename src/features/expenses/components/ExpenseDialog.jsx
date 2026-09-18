@@ -112,6 +112,7 @@ export default function ExpenseDialog({
       setErrors({});
       onClose();
     } catch {
+      return;
     } finally {
       setSaving(false);
     }

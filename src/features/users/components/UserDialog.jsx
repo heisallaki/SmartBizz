@@ -116,6 +116,7 @@ export default function UserDialog({
       setErrors({});
       onClose();
     } catch {
+      return;
     } finally {
       setSaving(false);
     }
