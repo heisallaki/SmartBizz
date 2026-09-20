@@ -1,0 +1,82 @@
+![SmartBizzSystem preview](.github/preview.png)
+
+# SmartBizzSystem
+
+SmartBizzSystem is a modern business management and inventory platform designed to help small and medium-sized businesses manage their day-to-day operations from a centralized system.
+
+The project was developed to address common challenges businesses face when managing inventory, suppliers, customers, sales, and business reporting across disconnected tools or manual processes.
+
+One of the main challenges was structuring multiple interconnected business modules while maintaining consistent data flow, validation, and a responsive user experience. I addressed this through modular architecture, reusable components, centralized theming, API integration, and structured database relationships.
+
+The result is a full-stack business management solution that demonstrates practical application of software development, business process design, database management, & modern web technologies. It supports KES, and Kenyan business requirements out of the box.
+
+## Features
+
+* **Sales & POS** — streamlined checkout, multiple payment methods, receipts, and sale management
+* **Inventory** — products, categories, stock adjustments, and low-stock tracking
+* **Customers & Suppliers** — contact management, transaction history, and order tracking
+* **Purchase Orders** — draft, approval, and receiving workflow with partial receiving
+* **Invoicing** — create invoices from sales or independently, with payment tracking
+* **Expenses** — categorized business expense management
+* **Reports** — sales, revenue, inventory, customer, and profit & loss reports
+* **Dashboard** — overview of sales, revenue, and inventory health
+* **Team Accounts** — role-based access with configurable permissions
+* **Notifications & Audit Logs** — system alerts and activity tracking
+* **Backups** — on-demand data backups for administrative use
+
+## Tech Stack
+
+**Frontend:** React 19, Vite, Material UI, React Router, Recharts
+**Backend:** Node.js, Express, Prisma ORM
+**Database:** PostgreSQL (Neon)
+
+## Getting Started
+
+Clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/heisallaki/SmartBizz
+cd SmartBizz
+npm install
+
+cd backend
+npm install
+```
+
+Create the required environment variables in `backend/.env` and `.env.local` at the project root.
+
+Set up the database and start the backend:
+
+```bash
+cd backend
+npm run prisma:migrate
+npm run prisma:seed
+npm run dev
+```
+
+In a separate terminal, start the frontend:
+
+```bash
+npm run dev
+```
+
+The seed process creates the initial Admin account using the configured bootstrap credentials. Use this account to sign in and create additional team accounts.
+
+## Project Structure
+
+```text
+SmartBizz/
+├── backend/        # API, business logic, authentication and database
+├── src/            # Frontend application
+│   ├── features/   # Business modules
+│   └── components/ # Shared UI components
+└── prisma/         # Database schema and migrations
+```
+
+## Deployment
+
+The frontend is deployed on Vercel, the backend on Render, and the PostgreSQL database is hosted on Neon.
+
+## License
+
+MIT License.

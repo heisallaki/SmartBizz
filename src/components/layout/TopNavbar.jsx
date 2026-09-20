@@ -1,0 +1,217 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import {
+  Alert,
+  AppBar,
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+
+import useAuth from "../../features/auth/hooks/useAuth";
+import useNotifications from "../../features/notifications/hooks/useNotifications";
+
+function timeAgo(dateString) {
+  const diffMs = Date.now() - new Date(dateString).getTime();
+  const diffMinutes = Math.floor(diffMs / 60000);
+
+  if (diffMinutes < 1) return "Just now";
+  if (diffMinutes < 60) return `${diffMinutes}m ago`;
+
+  const diffHours = Math.floor(diffMinutes / 60);
+  if (diffHours < 24) return `${diffHours}h ago`;
+
+  const diffDays = Math.floor(diffHours / 24);
+  return `${diffDays}d ago`;
+}
+
+export default function TopNavbar({ onMenuClick = () => {} }) {
+  const navigate = useNavigate();
+  const { logout, user } = useAuth();
+
+  const { notifications, unreadCount, error: notificationsError, markAsRead, markAllAsRead } = useNotifications();
+
+  const [profileAnchor, setProfileAnchor] = useState(null);
+  const [notificationAnchor, setNotificationAnchor] = useState(null);
+
+  const openProfile = (event) => {
+    setProfileAnchor(event.currentTarget);
+  };
+
+  const closeProfile = () => {
+    setProfileAnchor(null);
+  };
+
+  const openNotifications = (event) => {
+    setNotificationAnchor(event.currentTarget);
+  };
+
+  const closeNotifications = () => {
+    setNotificationAnchor(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  const handleNotificationClick = (notification) => {
+    if (!notification.isRead) markAsRead(notification.id);
+  };
+
+  return (
+    <AppBar
+      position="static"
+      elevation={1}
+      color="inherit"
+      sx={{
+        borderBottom: 1,
+        borderColor: "divider",
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          minHeight: 70,
+          gap: 1,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            minWidth: 0,
+          }}
+        >
+          <IconButton
+            onClick={onMenuClick}
+            aria-label="Open navigation menu"
+            sx={{ display: { xs: "inline-flex", lg: "none" } }}
+          >
+            <MenuRoundedIcon />
+          </IconButton>
+
+          <Typography variant="h6" fontWeight={700} noWrap>
+            SmartBizzSystem
+          </Typography>
+        </Box>
+
+        <Box display="flex" alignItems="center" gap={1}>
+          <IconButton onClick={openNotifications}>
+            <Badge badgeContent={unreadCount} color="error">
+              <NotificationsRoundedIcon />
+            </Badge>
+          </IconButton>
+
+          <IconButton onClick={openProfile}>
+            <Avatar sx={{ bgcolor: "primary.main" }}>
+              {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+            </Avatar>
+          </IconButton>
+        </Box>
+      </Toolbar>
+
+      <Menu
+        anchorEl={notificationAnchor}
+        open={Boolean(notificationAnchor)}
+        onClose={closeNotifications}
+        PaperProps={{ sx: { width: 340, maxWidth: "calc(100vw - 32px)" } }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            px: 2,
+            py: 1,
+          }}
+        >
+          <Typography variant="subtitle2" fontWeight={700}>
+            Notifications
+          </Typography>
+
+          <Button size="small" disabled={unreadCount === 0} onClick={markAllAsRead}>
+            Mark all read
+          </Button>
+        </Box>
+
+        <Divider />
+
+        {notificationsError ? (
+          <Alert severity="error" sx={{ mx: 2, my: 1 }}>
+            {notificationsError}
+          </Alert>
+        ) : null}
+
+        {notifications.length === 0 && !notificationsError ? (
+          <MenuItem disabled>
+            <ListItemText primary="No notifications yet" />
+          </MenuItem>
+        ) : (
+          notifications.map((notification) => (
+            <MenuItem
+              key={notification.id}
+              onClick={() => handleNotificationClick(notification)}
+              sx={{
+                whiteSpace: "normal",
+                alignItems: "flex-start",
+                bgcolor: notification.isRead ? "transparent" : "action.hover",
+              }}
+            >
+              <ListItemText
+                primary={notification.title}
+                secondary={
+                  <>
+                    <Typography component="span" variant="body2" color="text.secondary">
+                      {notification.message}
+                    </Typography>
+                    <br />
+                    <Typography component="span" variant="caption" color="text.disabled">
+                      {timeAgo(notification.createdAt)}
+                    </Typography>
+                  </>
+                }
+              />
+            </MenuItem>
+          ))
+        )}
+      </Menu>
+
+      <Menu anchorEl={profileAnchor} open={Boolean(profileAnchor)} onClose={closeProfile}>
+        <MenuItem disabled>
+          <ListItemIcon>
+            <PersonRoundedIcon />
+          </ListItemIcon>
+
+          <ListItemText primary={user?.name || "Account"} secondary={user?.email || ""} />
+        </MenuItem>
+
+        <Divider />
+
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <LogoutRoundedIcon />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+    </AppBar>
+  );
+}
