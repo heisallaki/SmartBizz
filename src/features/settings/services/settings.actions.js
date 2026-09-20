@@ -43,18 +43,3 @@ export async function importSettings(file) {
 
   return settingsService.importSettings(data);
 }
-
-
-export async function createBackup(settings) {
-  return settingsService.createBackup(settings);
-}
-
-
-export async function restoreBackup(backup) {
-  return settingsService.restoreBackup(backup);
-}
-
-
-export async function resetDemoData() {
-  return settingsService.resetDemoData();
-}

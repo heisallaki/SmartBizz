@@ -157,27 +157,6 @@ export async function importSettings(data) {
   return clone(data);
 }
 
-export async function createBackup(data) {
-  await delay();
-
-  return {
-    createdAt: new Date().toISOString(),
-    data: clone(data),
-  };
-}
-
-export async function restoreBackup(backup) {
-  await delay();
-
-  return clone(backup.data);
-}
-
-export async function resetDemoData() {
-  await delay();
-
-  return clone(settingsData);
-}
-
 const settingsService = {
   getSettings,
   getGeneralSettings,
@@ -196,11 +175,6 @@ const settingsService = {
 
   exportSettings,
   importSettings,
-
-  createBackup,
-  restoreBackup,
-
-  resetDemoData,
 };
 
 export default settingsService;
