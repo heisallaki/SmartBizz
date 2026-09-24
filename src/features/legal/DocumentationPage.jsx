@@ -1,8 +1,16 @@
 import LegalPageLayout, { LegalSection } from "./components/LegalPageLayout";
+import Seo from "../../components/common/Seo";
 
 export default function DocumentationPage() {
   return (
-    <LegalPageLayout
+    <>
+      <Seo
+        title="Documentation"
+        description="A quick guide to getting the most out of SmartBizzSystem — core modules, roles and permissions, live demo mode, and appearance settings."
+        path="/documentation"
+      />
+
+      <LegalPageLayout
       title="Documentation"
       subtitle="A quick guide to getting the most out of SmartBizz."
       lastUpdated="September 2026"
@@ -52,6 +60,7 @@ An Admin can fine-tune exactly what each role can view, create, edit, or delete 
       <LegalSection heading="Need More Help?">
         {`If you run into an issue or have a question that isn't covered here, reach out any time at kal.projects.dev@gmail.com.`}
       </LegalSection>
-    </LegalPageLayout>
+      </LegalPageLayout>
+    </>
   );
 }

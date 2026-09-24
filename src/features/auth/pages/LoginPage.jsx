@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import useAuth from "../hooks/useAuth";
 import { startDemoSession } from "../../../utils/demoMode";
+import Seo from "../../../components/common/Seo";
+import { SOFTWARE_APPLICATION_JSON_LD } from "../../../utils/seoConfig";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -16,7 +18,15 @@ export default function LoginPage() {
   };
 
   return (
-    <Box
+    <>
+      <Seo
+        title="Sign In"
+        description="Sign in to SmartBizzSystem to manage your inventory, sales, invoicing, customers, suppliers, and reports — or try the live demo with no account needed."
+        path="/login"
+        jsonLd={SOFTWARE_APPLICATION_JSON_LD}
+      />
+
+      <Box
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -77,6 +87,7 @@ export default function LoginPage() {
           No account needed. Explore with sample data.
         </Typography>
       </Paper>
-    </Box>
+      </Box>
+    </>
   );
 }

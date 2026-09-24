@@ -1,8 +1,16 @@
 import LegalPageLayout, { LegalSection } from "./components/LegalPageLayout";
+import Seo from "../../components/common/Seo";
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalPageLayout
+    <>
+      <Seo
+        title="Privacy Policy"
+        description="How SmartBizzSystem collects, uses, and protects your information, including data handling in Live Demo Mode."
+        path="/privacy-policy"
+      />
+
+      <LegalPageLayout
       title="Privacy Policy"
       subtitle="How SmartBizz collects, uses, and protects your information."
       lastUpdated="September 2026"
@@ -67,6 +75,7 @@ You can exercise any of these rights by contacting us using the details below.`}
 
 kal.projects.dev@gmail.com`}
       </LegalSection>
-    </LegalPageLayout>
+      </LegalPageLayout>
+    </>
   );
 }

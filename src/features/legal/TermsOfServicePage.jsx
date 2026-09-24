@@ -1,8 +1,16 @@
 import LegalPageLayout, { LegalSection } from "./components/LegalPageLayout";
+import Seo from "../../components/common/Seo";
 
 export default function TermsOfServicePage() {
   return (
-    <LegalPageLayout
+    <>
+      <Seo
+        title="Terms of Service"
+        description="The terms that govern your use of SmartBizzSystem, including Live Demo Mode, acceptable use, and account responsibilities."
+        path="/terms-of-service"
+      />
+
+      <LegalPageLayout
       title="Terms of Service"
       subtitle="The terms that govern your use of SmartBizz."
       lastUpdated="September 2026"
@@ -73,6 +81,7 @@ You should notify your administrator promptly if you suspect unauthorized use of
 
 kal.projects.dev@gmail.com`}
       </LegalSection>
-    </LegalPageLayout>
+      </LegalPageLayout>
+    </>
   );
 }

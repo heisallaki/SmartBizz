@@ -1,15 +1,31 @@
 import { Suspense, useState } from "react";
 import { Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import Sidebar from "./Sidebar";
 import TopNavbar from "./TopNavbar";
 import LoadingState from "../common/LoadingState";
 import DemoModeBanner from "../common/DemoModeBanner";
+import Seo from "../common/Seo";
+import navigation from "../../constants/navigation";
 import { isDemoMode } from "../../utils/demoMode";
+
+function useActivePageMeta(pathname) {
+  const activeItem = navigation.find((item) => item.path === pathname);
+
+  return {
+    title: activeItem?.title || "Dashboard",
+    description: activeItem?.subtitle
+      ? `${activeItem.subtitle} — manage your business with SmartBizzSystem.`
+      : "Manage your business with SmartBizzSystem.",
+  };
+}
 
 export default function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const { title: activePageTitle, description: activePageDescription } =
+    useActivePageMeta(location.pathname);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
@@ -28,6 +44,13 @@ export default function AppLayout() {
         bgcolor: "background.default",
       }}
     >
+      <Seo
+        noindex
+        title={activePageTitle}
+        description={activePageDescription}
+        path={location.pathname}
+      />
+
       <Sidebar mobileOpen={mobileOpen} onMobileClose={handleDrawerClose} />
 
       <Box

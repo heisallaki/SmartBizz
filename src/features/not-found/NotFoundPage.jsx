@@ -2,6 +2,8 @@ import { Box, Button, Typography } from "@mui/material";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import { Link } from "react-router-dom";
 
+import Seo from "../../components/common/Seo";
+
 function BrandIconBackdrop() {
   return (
     <Box
@@ -68,7 +70,10 @@ function BrandIconBackdrop() {
 
 export default function NotFoundPage() {
   return (
-    <Box
+    <>
+      <Seo title="Page Not Found" noindex />
+
+      <Box
       sx={{
         position: "relative",
         minHeight: "100vh",
@@ -164,6 +169,7 @@ export default function NotFoundPage() {
           Back to Dashboard
         </Button>
       </Box>
-    </Box>
+      </Box>
+    </>
   );
 }
